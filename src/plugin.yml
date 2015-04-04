@@ -1,0 +1,23 @@
+name: Broadcast
+main: me.es359.Broadcast.Main
+version: 1.0
+description: Custom Broadcast plugin for server admins!
+Author: ES359.
+
+commands:
+  broadcast:
+    description: Main command for plugin.
+    aliases: [b,alert,yell]
+
+  br-bugreport:
+    description: Allows users to submit problems to developer.
+    aliases: [br-report]
+
+  br-reports:
+    description: Allows the user to check their report for an answer.
+
+  br-check:
+    description:
+
+  br-deletereport:
+    description:
