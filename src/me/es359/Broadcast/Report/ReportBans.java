@@ -35,17 +35,15 @@ public class ReportBans {
     public void connection() {
         report.connectionExists();
         this.sql = report.getAccess();
-        this.table.createTable(sql,"create table report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), ban_status boolean, ban_reason varchar(100)); ");
+        this.table.createTable(sql,"create table report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), ban_status boolean, ban_reason varchar(350)); ");
     }
 
     public void checkBanned(SQL sql, Player p)  {
 
-        String name = p.getName();
         String uuid = ""+p.getUniqueId();
-        String status;
 
         try {
-            Statement s = sql.c.createStatement();
+            Statement s = sql.getConnection().createStatement();
 
             String query = "SELECT * FROM report_bans WHERE UUID='"+uuid+"'";
 
@@ -64,6 +62,38 @@ public class ReportBans {
         }
     }
 
+    public void getReason(SQL sql, Player p) {
+        String uuid = ""+p.getUniqueId();
+
+        //SELECT ban_reason FROM report_bans where id ='1';
+
+        //SELECT Name,UUID,ban_reason FROM report_bans where id ='2';
+
+
+        try{
+            Statement s = sql.getConnection().createStatement();
+
+            String query = "SELECT ban_reason FROM report_bans WHERE UUID='"+uuid+"'";
+
+            ResultSet set = s.executeQuery(query);
+
+            while(set.next()) {
+                String result = set.getString(4);
+                this.reason = result;
+                p.sendMessage(result + " DEBUGING");
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String reason;
+
+    public String returnReason() {
+        return reason;
+    }
+
     private boolean status;
 
     public boolean getStatus() {
@@ -80,6 +110,5 @@ public class ReportBans {
      */
     @Deprecated
     public void submitBan(SQL sql, String uuid) {}
-
 
 }
