@@ -1,5 +1,6 @@
 package me.es359.Broadcast.Report;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
@@ -36,6 +37,7 @@ public class ReportBans {
         report.connectionExists();
         this.sql = report.getAccess();
         this.table.createTable(sql,"create table report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), ban_status boolean, ban_reason varchar(350)); ");
+
     }
 
     public void checkBanned(SQL sql, Player p)  {
@@ -65,11 +67,6 @@ public class ReportBans {
     public void getReason(SQL sql, Player p) {
         String uuid = ""+p.getUniqueId();
 
-        //SELECT ban_reason FROM report_bans where id ='1';
-
-        //SELECT Name,UUID,ban_reason FROM report_bans where id ='2';
-
-
         try{
             Statement s = sql.getConnection().createStatement();
 
@@ -78,10 +75,13 @@ public class ReportBans {
             ResultSet set = s.executeQuery(query);
 
             while(set.next()) {
-                String result = set.getString(4);
-                this.reason = result;
-                p.sendMessage(result + " DEBUGING");
+                String result = ChatColor.RED + set.getString(1);
+
+                //this.reason = result;
+                p.sendMessage(result);
             }
+
+
 
         }catch (SQLException e) {
             e.printStackTrace();

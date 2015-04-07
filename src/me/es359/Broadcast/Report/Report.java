@@ -82,10 +82,9 @@ public class Report implements CommandExecutor{
             bans.checkBanned(sql,p);
             if(bans.getStatus() == true) {
 
-               // bans.checkBanned(sql,p);
+                bans.getReason(sql,p);
 
-              // p.sendMessage(bans.returnReason());
-               p.sendMessage(ChatColor.RED +"You have been banned from submitting reports, " + ChatColor.DARK_RED+p.getName() + ".");
+              // p.sendMessage(ChatColor.RED +"You have been banned from submitting reports, " + ChatColor.DARK_RED+p.getName() + ".");
             }else {
                 if(args.length < 1) {
                     p.sendMessage("Command usage: /br-bugreport <message>");
