@@ -51,6 +51,7 @@ public class DeleteReport implements CommandExecutor {
                 if (args.length < 1) {
                     p.sendMessage(ChatColor.RED +"/delete <id> [Use /check to check reports.]");
                 }else if(args.length == 1) {
+                    p.sendMessage(report.getMessage());
                     String id = args[0];
                     deleteReport(sql,p,id);
                 }

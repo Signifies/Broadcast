@@ -33,11 +33,18 @@ public class Report implements CommandExecutor{
     boolean log = true;
     private SQL sql;
 
+    private String message = ChatColor.translateAlternateColorCodes('&',"&a&oGathering Data...");
+
+    public String getMessage() {
+        return message;
+    }
+
     public void runConnection() {
         sql = new SQL("107.170.21.151","Logger","REQUEST1", "Logs");
         try{
-            table.createTable(sql,"CREATE TABLE IF NOT EXISTS user_reports (id INT PRIMARY KEY AUTO_INCREMENT, plugin varchar(25),  name varchar(50), UUID varchar(50), report varchar(250), stamp TIMESTAMP, status varchar(350));");
-            this.table.createTable(sql,"CREATE TABLE report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), banned_by varchar(35), ban_reason varchar(250)); ");
+            this.table.createTable(sql,"CREATE TABLE IF NOT EXISTS user_reports (id INT PRIMARY KEY AUTO_INCREMENT, plugin varchar(25),  name varchar(50), UUID varchar(50), report varchar(250), stamp TIMESTAMP, status varchar(350));");
+            this.table.createTable(sql,"CREATE TABLE report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), banned_by varchar(35), ban_reason varchar(250), stamp TIMESTAMP); ");
+
             if(log) {
                 //logToConsole("Table created.");
             }
@@ -111,7 +118,8 @@ public class Report implements CommandExecutor{
                         statement.execute();
                         statement.close();
 
-                        p.sendMessage(ChatColor.GREEN+"Your report was filed! Thanks for your help - The Dev's.");
+
+                        p.sendMessage(ChatColor.GREEN+"Your report was filed! Thanks, " +p.getName() + ChatColor.GREEN +".");
 
                     }catch (SQLException e) {
                         e.printStackTrace();

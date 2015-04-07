@@ -75,14 +75,12 @@ public class ReportBans {
             ResultSet set = s.executeQuery(query);
 
             while(set.next()) {
+              //  p.sendMessage(report.getMessage());
                 String result = ChatColor.RED + set.getString(1);
 
                 //this.reason = result;
                 p.sendMessage(result);
             }
-
-
-
         }catch (SQLException e) {
             e.printStackTrace();
         }

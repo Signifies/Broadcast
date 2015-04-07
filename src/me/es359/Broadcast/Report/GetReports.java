@@ -23,9 +23,10 @@ public class GetReports implements CommandExecutor {
 
             ResultSet set = s.executeQuery(query);
             String header = ChatColor.GRAY +"Name           report    Status:\n--------------------------" ;
+            p.sendMessage(report.getMessage());
             p.sendMessage(header);
             while(set.next()){
-
+                p.sendMessage(report.getMessage());
                 String result = ChatColor.AQUA+set.getString(3) +ChatColor.RESET+"  "+ set.getString(5) +"  :"+ ChatColor.GOLD +"  " + set.getString(7);
                 p.sendMessage(result);
             }

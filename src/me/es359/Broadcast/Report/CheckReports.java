@@ -93,11 +93,13 @@ public class CheckReports implements CommandExecutor {
                 // p.sendMessage(ChatColor.AQUA+"只是一些中国没有概率");
             }else {
                 if(args.length < 1) {
+                    p.sendMessage(report.getMessage());
                     // ID:   USER:  STATUS:
                     //Show Following ?: 12    ES359  <STATUS MESSAGE>
                     authorCheck(sql,p);
                     p.sendMessage(ChatColor.GREEN + "Use /check <id> for more information about the report.");
                 }else if(args.length > 0) {
+                    p.sendMessage(report.getMessage());
                     String id = args[0];
                     authorCheck(sql, p, id);
                 }
