@@ -1,1 +1,9 @@
-AlertPrefix: "&2&l[&4Alert&2&l]&f"
+AlertPrefix: "&5&lAlert &2&l>> &c"
+###################################
+staff-message: '&6&l[&c&lAdmin&6&l] &a[&7&l%username%&a] &8&l--&b&l> &7&o%message%'
+shout-settings:
+  permission-msg: "&cYou don't have permission to use shout!"
+  delay: 60
+  delay-msg: "%prefix% &cYou still have &b %time_left%  &cseconds left!"
+  prefix: "&f[&cS&f] "
+  format: "%custom_prefix% &f[&9%world%&f] &6&o%username% &e%message%"
