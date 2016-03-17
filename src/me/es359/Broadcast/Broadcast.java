@@ -1,5 +1,6 @@
 package me.es359.Broadcast;
 
+import Listener.Events;
 import Utilities.Debug;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,16 +15,17 @@ public class Broadcast extends JavaPlugin
 
     public PluginDescriptionFile pdfFile = getDescription();
 
-    static public boolean DEBUG = false;
+    static public boolean DEBUG;
     public void onEnable()
     {
         PluginManager pm = Bukkit.getServer().getPluginManager();
+        pm.registerEvents(new Events(this), this);
         this.getCommand("sb").setExecutor(new ModBroadcastCommand(this));
         this.getCommand("Broadcast").setExecutor(new BroadcastCommand(this));
         this.getCommand("shout").setExecutor(new ShoutCommand(this));
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
-        Debug.debugEnabled();
+//        Debug.debugEnabled();
     }
 
 }

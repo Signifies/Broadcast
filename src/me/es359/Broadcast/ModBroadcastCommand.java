@@ -27,10 +27,13 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
 
         if(cmd.getName().equalsIgnoreCase("sb")) {
             if(!sender.hasPermission(Permissions.BROADCAST_STAFF_PERM)){
-                sender.sendMessage(ChatColor.RED+ "You need the permission broadcast.staff to use this!");
+                sender.sendMessage(color(this.main.getConfig().getString("Messages.modbroadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
-                    sender.sendMessage(getPrefix() +ChatColor.GREEN + "" + ChatColor.ITALIC + "/sb <message>");
+
+                    displayHelp(sender, "&8========== [&b&lHelp&8] &8==========", "&a&o/sb <message> &a- &c" +Permissions.BROADCAST_STAFF_PERM +"||" +Permissions.BROADCAST_STAFF_RECEIVE_PERM, "&1C&2o&3l&4o&5r &cFormatting:\n" +
+                            "&8View color code help here: &b&nhttp://minecraftcolorcodes.com/");
+
                 }else {
                     if(args.length > 0) {
 
@@ -42,7 +45,7 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         String alert = str.toString();
                         alert = alert.replace("&", "§");
 
-                        String value = ChatColor.translateAlternateColorCodes('&',this.main.getConfig().getString("staff-message"));
+                        String value = ChatColor.translateAlternateColorCodes('&',this.main.getConfig().getString("Broadcast-settings.mod-broadcast.format"));
 
                         value = value.replace("%message%",alert);
                         value = value.replace("%username%",sender.getName());
@@ -50,6 +53,7 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         for(Player staff : Bukkit.getServer().getOnlinePlayers()) {
                             if(staff.hasPermission(Permissions.BROADCAST_STAFF_RECEIVE_PERM)) {
                                 staff.sendMessage(value);
+                                broadcastSound(main.getConfig().getString("Message-sounds.modbroadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.mod-broadcast.Sound-on-broadcast"));
                             }
                         }
                         Bukkit.getServer().getConsoleSender().sendMessage(value);

@@ -1,9 +1,46 @@
-AlertPrefix: "&5&lAlert &2&l>> &c"
 ###################################
-staff-message: '&6&l[&c&lAdmin&6&l] &a[&7&l%username%&a] &8&l--&b&l> &7&o%message%'
+Author-msg: true
+###################################
+Broadcast-settings:
+  mod-broadcast:
+    format: '&6&l[&c&lAdmin&6&l] &a[&7&l%username%&a] &8&l--&b&l> &7&o%message%'
+    Sound-on-broadcast: true
+  Broadcast:
+    AlertPrefix: "&5&lAlert &2&l>> &c"
+    Sound-on-broadcast: true
+###################################
+Message-sounds:
+  broadcast-sound: "LEVEL_UP"
+  modbroadcast-sound: "CHICKEN_EGG_POP"
+  shoutbroadcast-sound: "FIREWORK_BLAST"
+  sound-on-Join: "AMBIENCE_THUNDER"
+  sound-on-Quit: "CHEST_CLOSE"
+###################################
 shout-settings:
-  permission-msg: "&cYou don't have permission to use shout!"
+  permission-msg: "%prefix%&cYou don't have permission to use shout!"
   delay: 60
   delay-msg: "%prefix% &cYou still have &b %time_left%  &cseconds left!"
   prefix: "&f[&cS&f] "
   format: "%custom_prefix% &f[&9%world%&f] &6&o%username% &e%message%"
+  Sound-on-shout: true
+###################################
+Events:
+  Join:
+    Enabled: true
+    Message: "&eJoin &l&8[&a&l+&8&l] &a&n%player%"
+    Permission: "broadcast.join"
+    Staff-Prefix: "&4Staff &l&8[&a&l+&l&8] &a&n%player%"
+    sound-enabled: true
+###################################
+  Quit:
+    Enabled: true
+    Message: "&cQuit &l&8[&4&l-&8&l] &2&m%player%"
+    Permission: "broadcast.quit"
+    Staff-Prefix: "&4Staff &l&8[&c&l-&l&8] &2&m%player%"
+    sound-enabled: false
+###################################
+Messages:
+  broadcastCmdMsg: "%prefix%&eYou need the permission, broadcast.use to complete that."
+  modbroadcastCmdMsg: "%prefix%&cYou need the permission broadcast.staff to use this!"
+  broadcast-reloadMsg: "%prefix%&cYou need the permission broadcast.reload to complete this."
+  reload-Msg: "%prefix%&cThe configuration has been reloaded..."

@@ -1,6 +1,7 @@
 package me.es359.Broadcast;
 
 import Utilities.BroadcastUtils;
+import Utilities.Debug;
 import Utilities.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,10 +27,13 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
         if(cmd.getName().equalsIgnoreCase("Broadcast")) {
             if(!sender.hasPermission(Permissions.BROADCAST_PERM))
             {
-                sender.sendMessage(ChatColor.YELLOW +"You need the permission, broadcast.use to complete that.");
+                sender.sendMessage(color(this.main.getConfig().getString("Messages.broadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
-                    sender.sendMessage(color("&a/broadcast <message> [&1C&2o&3l&4o&5r &ccodes can be used. &cFormatting: &6>prefix &a- &6displays username.]"));
+                    //TODO IMPLEMENT DISPLAYHELP METHOD () FROM UTILS.
+                    displayHelp(sender,"&8========== [&b&lHelp&8] &8==========","&7/broadcast <msg> &c||<-help>||<-reload>  &a- &c" +Permissions.BROADCAST_PERM + "|| "+ Permissions.BROADCAST_RELOAD,
+
+                            "&1C&2o&3l&4o&5r &cFormatting: &6>prefix &a- &6displays username.\n&8View color code help here: &b&nhttp://minecraftcolorcodes.com/");
                 }else {
                     StringBuilder str = new StringBuilder();
 
@@ -37,15 +41,37 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                         str.append(args[j] + " ");
                     }
                     String alert = str.toString();
+
+                    if(alert.contains("-debug"))
+                    {
+                        Debug.log("Contains Debug reached..");
+                        Debug.debugToggle(sender,args);
+                        return true;
+                    }
+
+
                     if(alert.contains("-help"))
                     {
                         desc(sender,main);
+                    }else if(alert.contains("-reload") || alert.contains("-rl"))
+                    {
+                        if(!sender.hasPermission(Permissions.BROADCAST_RELOAD))
+                        {
+                            sender.sendMessage(color(this.main.getConfig().getString("Messages.broadcast-reloadMsg")));
+                        }else
+                        {
+                            this.main.reloadConfig();
+                            sender.sendMessage(color(this.main.getConfig().getString("Messages.reload-Msg")));
+                        }
+                    }
+                    else
+                    {
+                        alert = alert.replace("&", "§");
+                        alert = alert.replace(">prefix",ChatColor.RED + " "+sender.getName() +ChatColor.DARK_GRAY + ">" + ChatColor.RESET);
+                        Bukkit.getServer().broadcastMessage(color(main.getConfig().getString("Broadcast-settings.Broadcast.AlertPrefix")) + " " + alert);
+                        broadcastSound(main.getConfig().getString("Message-sounds.broadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.Broadcast.Sound-on-broadcast"));
                         return true;
                     }
-                    alert = alert.replace("&", "§");
-                    alert = alert.replace(">prefix",ChatColor.RED + " "+sender.getName() +ChatColor.DARK_GRAY + ">" + ChatColor.WHITE);
-                    Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("AlertPrefix")) + " " + alert);
-                    return true;
                 }
             }
         }
