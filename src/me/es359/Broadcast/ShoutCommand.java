@@ -70,7 +70,7 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
                     //"
 
                     displayHelpMsg(p,"&8========== [&b&lHelp&8] &8==========","&8/shout <message> &a- &c"+Permissions.BROADCAST_SHOUT_PERM,
-                            "&6Use /shout <message> to broadcast to the entire server. &9&l&n"+cooldownTime + "&r &csecond Delay is default.");
+                            "&6Use /shout <message> to broadcast to the entire server. &9&l&n"+cooldownTime + "&r &csecond Delay is default. &3&nUse /shout -help for more");
                 }else if(args.length > 0)
                 {
 

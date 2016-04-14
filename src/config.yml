@@ -9,13 +9,6 @@ Broadcast-settings:
     AlertPrefix: "&5&lAlert &2&l>> &c"
     Sound-on-broadcast: true
 ###################################
-Message-sounds:
-  broadcast-sound: "LEVEL_UP"
-  modbroadcast-sound: "CHICKEN_EGG_POP"
-  shoutbroadcast-sound: "FIREWORK_BLAST"
-  sound-on-Join: "AMBIENCE_THUNDER"
-  sound-on-Quit: "CHEST_CLOSE"
-###################################
 shout-settings:
   permission-msg: "%prefix%&cYou don't have permission to use shout!"
   delay: 60
@@ -23,6 +16,13 @@ shout-settings:
   prefix: "&f[&cS&f] "
   format: "%custom_prefix% &f[&9%world%&f] &6&o%username% &e%message%"
   Sound-on-shout: true
+###################################
+Message-sounds:
+  broadcast-sound: "LEVEL_UP"
+  modbroadcast-sound: "CHICKEN_EGG_POP"
+  shoutbroadcast-sound: "FIREWORK_BLAST"
+  sound-on-Join: "AMBIENCE_THUNDER"
+  sound-on-Quit: "CHEST_CLOSE"
 ###################################
 Events:
   Join:

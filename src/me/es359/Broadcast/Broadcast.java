@@ -15,7 +15,7 @@ public class Broadcast extends JavaPlugin
 
     public PluginDescriptionFile pdfFile = getDescription();
 
-    static public boolean DEBUG;
+    static public boolean DEBUG = false;
     public void onEnable()
     {
         PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -25,7 +25,5 @@ public class Broadcast extends JavaPlugin
         this.getCommand("shout").setExecutor(new ShoutCommand(this));
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
-//        Debug.debugEnabled();
     }
-
 }

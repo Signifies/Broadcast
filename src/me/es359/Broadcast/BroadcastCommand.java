@@ -42,6 +42,12 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                     }
                     String alert = str.toString();
 
+                    if(alert.contains("-ver") || alert.contains("-version"))
+                    {
+                      sender.sendMessage(getPluginVersion(main,sender));
+                        return true;
+                    }
+
                     if(alert.contains("-debug"))
                     {
                         Debug.log("Contains Debug reached..");

@@ -7,13 +7,11 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
-
-import java.net.URL;
-import java.sql.SQLException;
 import java.util.UUID;
 
 public class BroadcastUtils {
+
+    private final String version_ID = "3.0.1 4/13/16";
 
     /**
      * Plugin prefix.
@@ -23,6 +21,10 @@ public class BroadcastUtils {
      * Constant permission error.
      */
     private String permission = getPrefix()+color("&cUnknown command. Type \"/help\" for help.");
+    public String getPermission()
+    {
+        return this.permission;
+    }
 
     private String donationURL = color("https://www.paypal.me/ES359");
 
@@ -36,6 +38,47 @@ public class BroadcastUtils {
     }
 
     /**
+     *  Informs author that plugin is being used by server.
+     *
+     * @param p
+     */
+    public void displayAuthInfo(Player p)
+    {
+        if(checkAuth(p.getUniqueId()))
+        {
+            p.sendMessage(color("&a&l&oHello, &7"+ p.getName() +"\n &aThis server is using ") + getPrefix());
+        }
+    }
+
+    /**
+     *
+     *
+     *
+     */
+
+    /**
+     * Displays Author message to players.
+     * @param instance
+     * @param player
+     */
+    @Deprecated
+    public void authorMessage(Plugin instance, Player player)
+    {
+        if(instance.getConfig().getBoolean("Author-msg"))
+        {
+            displayHelpMsg(player,"&8&l---------- [&a&lBroadcast&8&l] -----------","&6Custom & plugin for spigot! &bBy &1__ES","&3Use /broadcast -help for info!\n&6Plugin Site! &e&lhttp://www.spigotmc.org/resources/broadcast.5747/\n&8-------------------------");
+        }
+    }
+
+    /**
+     *  Returns this plugins version.
+     */
+    public String getPluginVersion(Broadcast main, CommandSender sender)
+    {
+        return color("&fHello, &a&n"+sender.getName() +".&r\nYou are currently running version &b&n"+main.pdfFile.getVersion() + "&r of &e&n"+main.pdfFile.getName() +"&r\n \n&6Your server is running version &c&n"+ main.getServer().getBukkitVersion());
+    }
+
+    /**
      * Gets the set plugin prefix.
      *
      * @return
@@ -46,7 +89,6 @@ public class BroadcastUtils {
     }
 
     /**
-     *
      * @return Donation URL
      */
     public String getDonationURL()
@@ -58,18 +100,6 @@ public class BroadcastUtils {
      * Gets pre-defined permission error.
      * @return
      */
-    public String getPermission()
-    {
-        return this.permission;
-    }
-
-    public void authorMessage(Plugin instance, Player player)
-    {
-           if(instance.getConfig().getBoolean("Author-msg"))
-           {
-                displayHelpMsg(player,"&8&l---------- [&a&lBroadcast&8&l] -----------","&6Custom &cBroadcast plugin for spigot! &bBy &1__ES","&3Use /broadcast -help for info!\n&6Plugin Site! &e&lhttp://www.spigotmc.org/resources/broadcast.5747/\n&8-------------------------");
-           }
-    }
 
     public void logToConsole(String message) {
         Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
@@ -115,10 +145,10 @@ public class BroadcastUtils {
 
     public String color(String message) {
 
-     String msg =  message;
-            msg = msg.replace("&", "§");
-            msg = msg.replace("%prefix%",getPrefix());
-       return msg;
+        String msg =  message;
+        msg = msg.replace("&", "§");
+        msg = msg.replace("%prefix%",getPrefix());
+        return msg;
     }
 
     /**
@@ -142,6 +172,8 @@ public class BroadcastUtils {
      *  Sends configured sound to player...
      *  https://gist.github.com/ES359/7aa8da5dbf88496e4098 - Configuration sounds...
      *  List of sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+     *
+     *  This method was created for the plugin Broadcast.
      *
      * @param sound
      * @param enabled
