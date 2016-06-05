@@ -33,10 +33,14 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
 
                     displayHelp(sender, "&8========== [&b&lHelp&8] &8==========", "&a&o/sb <message> &a- &c" +Permissions.BROADCAST_STAFF_PERM +"||" +Permissions.BROADCAST_STAFF_RECEIVE_PERM, "&1C&2o&3l&4o&5r &cFormatting:\n" +
                             "&8View color code help here: &b&nhttp://minecraftcolorcodes.com/");
-
+                        if(main.getNotifications().contains(sender.getName()))
+                        {
+                            sender.sendMessage(color(main.getConfig().getString("Messages.warning")));
+                        }
                 }else {
                     if(args.length > 0) {
 
+//                 TODO       main.getNotifications().add(sender.getName());
                         StringBuilder str = new StringBuilder();
 
                         for (int j = 0; j < args.length; j++) {
@@ -50,13 +54,34 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         value = value.replace("%message%",alert);
                         value = value.replace("%username%",sender.getName());
 
-                        for(Player staff : Bukkit.getServer().getOnlinePlayers()) {
-                            if(staff.hasPermission(Permissions.BROADCAST_STAFF_RECEIVE_PERM)) {
-                                staff.sendMessage(value);
-                                broadcastSound(main.getConfig().getString("Message-sounds.modbroadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.mod-broadcast.Sound-on-broadcast"));
+                        if(alert.contains("-toggle"))
+                        {
+                            //TODO implement toggle.
+
+                            if(!main.getNotifications().contains(sender.getName()))
+                            {
+                                main.getNotifications().add(sender.getName());
+                                sender.sendMessage(color(main.getConfig().getString("Messages.notifiy-disabled")));
+                            }else
+                            {
+                                main.getNotifications().remove(sender.getName());
+                                sender.sendMessage(color(main.getConfig().getString("Messages.notifiy-enabled")));
                             }
+
+                        }else
+                        {
+                            for(Player staff : Bukkit.getServer().getOnlinePlayers()) {
+                                if(staff.hasPermission(Permissions.BROADCAST_STAFF_RECEIVE_PERM))
+                                {
+                                    if(!main.getNotifications().contains(staff.getName()))
+                                    {
+                                        staff.sendMessage(value);
+                                        broadcastSound(main.getConfig().getString("Message-sounds.modbroadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.mod-broadcast.Sound-on-broadcast"));
+                                    }
+                                }
+                            }
+                            Bukkit.getServer().getConsoleSender().sendMessage(value);
                         }
-                        Bukkit.getServer().getConsoleSender().sendMessage(value);
                     }
                 }
             }

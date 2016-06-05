@@ -50,8 +50,10 @@ public class Events extends BroadcastUtils implements Listener
     {
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
-        authorMessage(main,p);
-        displayAuthInfo(p);
+//TODO REMOVED.        authorMessage(main,p);
+
+        authorToggle(main,p);
+
         //Location location = p.getName() +"'s Location: " +"" + ChatColor.GRAY + " " + p.getLocation().getBlockX() +", " + ChatColor.BLUE +p.getLocation().getBlockY() + " " + ChatColor.GREEN + ", " + p.getLocation().getBlockZ();
         String staffMsg = this.main.getConfig().getString("Events.Join.Staff-Prefix");
         staffMsg = staffMsg.replace("%player%",p.getName());
@@ -60,6 +62,7 @@ public class Events extends BroadcastUtils implements Listener
         String msg = this.main.getConfig().getString("Events.Join.Message");
         msg = msg.replace("%player%",p.getName());
         msg = msg.replace("%world%",p.getWorld().getName());
+
 
         if(joinEnabled())
         {

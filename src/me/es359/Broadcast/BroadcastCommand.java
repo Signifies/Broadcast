@@ -2,6 +2,7 @@ package me.es359.Broadcast;
 
 import Utilities.BroadcastUtils;
 import Utilities.Debug;
+import Utilities.Menus;
 import Utilities.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,8 +15,8 @@ import org.bukkit.command.CommandSender;
  */
 public class BroadcastCommand extends BroadcastUtils implements CommandExecutor {
 
-    public Broadcast main;
-
+    Broadcast main;
+    private Menus menu = new Menus();
     public BroadcastCommand(Broadcast instance) {
         this.main= instance;
     }
@@ -55,10 +56,12 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                         return true;
                     }
 
-
                     if(alert.contains("-help"))
                     {
-                        desc(sender,main);
+                       //TODO Deprecated, implementing better help menu. desc(sender,main);
+
+                        sendText(menu.commandList(), sender);
+
                     }else if(alert.contains("-reload") || alert.contains("-rl"))
                     {
                         if(!sender.hasPermission(Permissions.BROADCAST_RELOAD))
@@ -69,6 +72,9 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                             this.main.reloadConfig();
                             sender.sendMessage(color(this.main.getConfig().getString("Messages.reload-Msg")));
                         }
+                    }else if(alert.contains("-about"))
+                    {
+                        desc(sender,main);
                     }
                     else
                     {

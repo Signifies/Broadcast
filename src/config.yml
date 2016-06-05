@@ -1,6 +1,4 @@
 ###################################
-Author-msg: true
-###################################
 Broadcast-settings:
   mod-broadcast:
     format: '&6&l[&c&lAdmin&6&l] &a[&7&l%username%&a] &8&l--&b&l> &7&o%message%'
@@ -18,11 +16,11 @@ shout-settings:
   Sound-on-shout: true
 ###################################
 Message-sounds:
-  broadcast-sound: "LEVEL_UP"
-  modbroadcast-sound: "CHICKEN_EGG_POP"
-  shoutbroadcast-sound: "FIREWORK_BLAST"
-  sound-on-Join: "AMBIENCE_THUNDER"
-  sound-on-Quit: "CHEST_CLOSE"
+  broadcast-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  modbroadcast-sound: ENTITY_CHICKEN_EGG
+  shoutbroadcast-sound: ENTITY_FIREWORK_LAUNCH
+  sound-on-Join: ENTITY_LIGHTNING_THUNDER
+  sound-on-Quit: ENTITY_SPLASH_POTION_BREAK
 ###################################
 Events:
   Join:
@@ -44,3 +42,6 @@ Messages:
   modbroadcastCmdMsg: "%prefix%&cYou need the permission broadcast.staff to use this!"
   broadcast-reloadMsg: "%prefix%&cYou need the permission broadcast.reload to complete this."
   reload-Msg: "%prefix%&cThe configuration has been reloaded..."
+  notifiy-enabled: "%prefix% &aYou are now receiving staff notifications."
+  notifiy-disabled: "%prefix% &cYou are no longer receiving staff notifications."
+  warning: "%prefix% &cWarning - &cYou currently have notifications &4off. &cDo /sb -toggle to turn them on."

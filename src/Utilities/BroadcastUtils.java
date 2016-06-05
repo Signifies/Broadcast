@@ -7,11 +7,29 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+
+/**
+ *
+ * @author __ES (ES359) of Plugin, Broadcast.
+ * All the code in this plugin, and related is the property
+ * of of it's creator. You may decompile this resource at will, and if you use a specific section of code unique
+ * to this plugin, please make sure I __ES, get credited.
+ * Developers that contributed to this resource, will be mentioned under authors in the plugin.yml file.
+ *
+ */
+
 
 public class BroadcastUtils {
 
-    private final String version_ID = "3.0.1 4/13/16";
+    /**
+     * Hard coded version ID. Because I forget.
+     */
+    private final String VERSION_ID = "3.0.2 6/5/16";
 
     /**
      * Plugin prefix.
@@ -28,11 +46,20 @@ public class BroadcastUtils {
 
     private String donationURL = color("https://www.paypal.me/ES359");
 
-    String author = "9c5dd792-dcb3-443b-ac6c-605903231eb2";
+    /**
+     * @return Donation URL
+     */
+    public String getDonationURL()
+    {
+        return donationURL;
+    }
+
     /**
      * Author.
      */
-    boolean checkAuth(UUID user)
+    String author = "9c5dd792-dcb3-443b-ac6c-605903231eb2";
+
+    public boolean checkAuth(UUID user)
     {
         return user.toString().equals(author);
     }
@@ -46,15 +73,29 @@ public class BroadcastUtils {
     {
         if(checkAuth(p.getUniqueId()))
         {
-            p.sendMessage(color("&a&l&oHello, &7"+ p.getName() +"\n &aThis server is using ") + getPrefix());
+            p.sendMessage(color("&a&l&oHello, &7"+ p.getName() +"\n &aThis server is using " + getPrefix() + "&r\n&cVersion ID: &7" +VERSION_ID));
         }
+    }
+    /**
+     *  Returns this plugins version.
+     */
+    public String getPluginVersion(Broadcast main, CommandSender sender)
+    {
+        return color("&fHello, &a&n"+sender.getName() +".&r\nYou are currently running version &b&n"+main.pdfFile.getVersion() + "&r of &e&n"+main.pdfFile.getName() +"&r\n \n&6Your server is running version &c&n"+ main.getServer().getBukkitVersion());
     }
 
     /**
      *
-     *
+     * Functions to run inside author toggle.
      *
      */
+    public void authorToggle(Broadcast main, Player author )
+    {
+        if(!main.getAuthor().contains(author.getUniqueId()))
+        {
+            displayAuthInfo(author);
+        }
+    }
 
     /**
      * Displays Author message to players.
@@ -71,14 +112,6 @@ public class BroadcastUtils {
     }
 
     /**
-     *  Returns this plugins version.
-     */
-    public String getPluginVersion(Broadcast main, CommandSender sender)
-    {
-        return color("&fHello, &a&n"+sender.getName() +".&r\nYou are currently running version &b&n"+main.pdfFile.getVersion() + "&r of &e&n"+main.pdfFile.getName() +"&r\n \n&6Your server is running version &c&n"+ main.getServer().getBukkitVersion());
-    }
-
-    /**
      * Gets the set plugin prefix.
      *
      * @return
@@ -86,14 +119,6 @@ public class BroadcastUtils {
     public String getPrefix()
     {
         return this.prefix;
-    }
-
-    /**
-     * @return Donation URL
-     */
-    public String getDonationURL()
-    {
-        return donationURL;
     }
 
     /**
@@ -122,7 +147,8 @@ public class BroadcastUtils {
         sender.sendMessage(color("&bWebsite: &e&l" + main.pdfFile.getWebsite()));
         sender.sendMessage(color("&bList of sounds: &3&nhttps://gist.github.com/ES359/7aa8da5dbf88496e4098 - Configuration sounds... "));
         sender.sendMessage(color("&bMinecraft Color Codes: &a&nhttp://minecraftcolorcodes.com/"));
-        sender.sendMessage(color("     &6&l>>>&2&l===============&6&l<<<\t"));
+        sender.sendMessage(color("&9If you like my work, you can support me by donating &ahere: " +getDonationURL()));
+        sender.sendMessage(color("&8-----------------------------"));
     }
 
     public void displayHelp(CommandSender sender, String title, String command, String info)
@@ -195,5 +221,16 @@ public class BroadcastUtils {
             }
         }
     }
+
+    public void sendText(ArrayList<String> text, CommandSender sender)
+    {
+        for(String txt: text)
+        {
+            txt = txt.replace("%player%",sender.getName());
+            sender.sendMessage(color(txt));
+        }
+    }
+
+
 
 }

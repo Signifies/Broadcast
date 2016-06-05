@@ -1,6 +1,6 @@
 name: Broadcast
 main: me.es359.Broadcast.Broadcast
-version: 3.0.1
+version: 3.0.2
 description: Custom Broadcast plugin for server admins!
 author: __ES
 website: http://www.spigotmc.org/resources/broadcast.5747/
@@ -11,7 +11,7 @@ commands:
     aliases: [b,alert,yell,bc]
   sb:
     description: Main command for staff members.
-    aliases: [mb, heyadmin, staffyelling]
+    aliases: [mb, heyadmin, staffyelling,sc]
   shout:
     description: Public broadcast feature for server users.
     aliases: [y, hey, a]
