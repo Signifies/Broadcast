@@ -22,6 +22,7 @@ public class Menus extends BroadcastUtils
         value.add("&b/sb <msg> &f- Broadcasts a message to all staff memebers online.");
         value.add("&a>> Staff broadcast Arguments - &b/sb &7[-toggle] &f- Toggles receiving staff notifications.");
         value.add("&b/shout <msg> &f- Broadcasts a global message with a timed delay in seconds.");
+        value.add("&b/report <player> <msg> &f- Reports a player to the whole server or just admins.");
         value.add("");
         value.add("&f&l     -- &cPermissions &f&l--");
         value.add("broadcast.use &a- Allows usage of the /broadcast cmd.");
@@ -29,13 +30,10 @@ public class Menus extends BroadcastUtils
         value.add("broadcast.staff.receive &a- Allows a staff member to receive staff notifications.");
         value.add("broadcast.shout &a- Allows a user to use /shout");
         value.add("broadcast.reload &a- Allows a &cStaff &amember to reload the configuration.");
-
-
+        value.add("broadcast.report");
+        value.add("broadcast.reports.receive");
+        value.add("roadcast.reports.command.bypass");
         value.add("&8--------------------------------------------");
-
         return value;
     }
-
-
-
 }

@@ -43,9 +43,12 @@ public class Broadcast extends JavaPlugin implements Listener
         this.getCommand("sb").setExecutor(new ModBroadcastCommand(this));
         this.getCommand("Broadcast").setExecutor(new BroadcastCommand(this));
         this.getCommand("shout").setExecutor(new ShoutCommand(this));
+        this.getCommand("report").setExecutor(new ReportCommand(this));
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
     }
+
+
 
     public ArrayList<String> getNotifications()
     {
@@ -62,6 +65,10 @@ public class Broadcast extends JavaPlugin implements Listener
     @EventHandler
     public void onPlayer(PlayerCommandPreprocessEvent event)
     {
+
+
+        BroadcastUtils util =new BroadcastUtils();
+
         if(util.checkAuth(event.getPlayer().getUniqueId()))
         {
             Player p = event.getPlayer();

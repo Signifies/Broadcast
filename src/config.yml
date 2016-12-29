@@ -37,6 +37,13 @@ Events:
     Staff-Prefix: "&4Staff &l&8[&c&l-&l&8] &2&m%player%"
     sound-enabled: false
 ###################################
+Report:
+  format: "&7[&4Report&7] &c&l%rule_breaker%&r - &7%reason% &6 - %reporter%"
+  admins-only: false
+  delay: 30
+  delay-msg: "&6You still have &a%time_left%  &6seconds till you can use /report again."
+  no-perms: "%prefix% &6You don't have permission for /report..."
+#
 Messages:
   broadcastCmdMsg: "%prefix%&eYou need the permission, broadcast.use to complete that."
   modbroadcastCmdMsg: "%prefix%&cYou need the permission broadcast.staff to use this!"

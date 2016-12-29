@@ -97,19 +97,6 @@ public class BroadcastUtils {
         }
     }
 
-    /**
-     * Displays Author message to players.
-     * @param instance
-     * @param player
-     */
-    @Deprecated
-    public void authorMessage(Plugin instance, Player player)
-    {
-        if(instance.getConfig().getBoolean("Author-msg"))
-        {
-            displayHelpMsg(player,"&8&l---------- [&a&lBroadcast&8&l] -----------","&6Custom & plugin for spigot! &bBy &1__ES","&3Use /broadcast -help for info!\n&6Plugin Site! &e&lhttp://www.spigotmc.org/resources/broadcast.5747/\n&8-------------------------");
-        }
-    }
 
     /**
      * Gets the set plugin prefix.
@@ -147,6 +134,7 @@ public class BroadcastUtils {
         sender.sendMessage(color("&bWebsite: &e&l" + main.pdfFile.getWebsite()));
         sender.sendMessage(color("&bList of sounds: &3&nhttps://gist.github.com/ES359/7aa8da5dbf88496e4098 - Configuration sounds... "));
         sender.sendMessage(color("&bMinecraft Color Codes: &a&nhttp://minecraftcolorcodes.com/"));
+        sender.sendMessage(color("&7If you find bugs, errors, or would like to suggest ideas: https://github.com/ES359/Broadcast/issues/new"));
         sender.sendMessage(color("&9If you like my work, you can support me by donating &ahere: " +getDonationURL()));
         sender.sendMessage(color("&8-----------------------------"));
     }
