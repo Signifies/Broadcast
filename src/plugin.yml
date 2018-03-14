@@ -2,7 +2,7 @@ name: Broadcast
 main: me.es359.Broadcast.Broadcast
 version: 3.0.3
 description: Custom Broadcast plugin for server admins!
-author: __ES
+author: Signifies
 website: http://www.spigotmc.org/resources/broadcast.5747/
 
 commands:
@@ -16,5 +16,5 @@ commands:
     description: Public broadcast feature for server users.
     aliases: [y, hey, a]
   report:
-    description: Command to report a rule breaker.
-    aliases: []
+    description: [A simple chat based report system]
+    aliases: [breport,reportplayer]
