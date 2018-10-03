@@ -1,10 +1,8 @@
 package Listener;
 
 import Utilities.BroadcastUtils;
-import me.es359.Broadcast.Broadcast;
+import me.signifies.Broadcast.Broadcast;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

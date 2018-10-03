@@ -1,4 +1,4 @@
-package me.es359.Broadcast;
+package me.signifies.Broadcast;
 
 import Utilities.BroadcastUtils;
 import Utilities.Permissions;
@@ -15,32 +15,31 @@ import org.bukkit.entity.Player;
  */
 public class ModBroadcastCommand extends BroadcastUtils implements CommandExecutor {
 
-    private Broadcast main;
+    private Broadcast instance;
 
     public ModBroadcastCommand(Broadcast instance) {
-        this.main = instance;
+        this.instance = instance;
     }
 
 
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[]) {
 
-        if(cmd.getName().equalsIgnoreCase("sb")) {
+
             if(!sender.hasPermission(Permissions.BROADCAST_STAFF_PERM)){
-                sender.sendMessage(color(this.main.getConfig().getString("Messages.modbroadcastCmdMsg")));
+                sender.sendMessage(color(this.instance.getConfig().getString("Messages.modbroadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
 
-                    displayHelp(sender, "&8========== [&b&lHelp&8] &8==========", "&a&o/sb <message> &a- &c" +Permissions.BROADCAST_STAFF_PERM +"||" +Permissions.BROADCAST_STAFF_RECEIVE_PERM, "&1C&2o&3l&4o&5r &cFormatting:\n" +
-                            "&8View color code help here: &b&nhttp://minecraftcolorcodes.com/");
-                        if(main.getNotifications().contains(sender.getName()))
+                    sendText(instance.getMenus().commandStaffBroadcast(),sender);
+                        if(instance.getNotifications().contains(sender.getName()))
                         {
-                            sender.sendMessage(color(main.getConfig().getString("Messages.warning")));
+                            sender.sendMessage(color(instance.getConfig().getString("Messages.warning")));
                         }
                 }else {
                     if(args.length > 0) {
 
-//                 TODO       main.getNotifications().add(sender.getName());
+//                 TODO       instance.getNotifications().add(sender.getName());
                         StringBuilder str = new StringBuilder();
 
                         for (int j = 0; j < args.length; j++) {
@@ -49,7 +48,7 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         String alert = str.toString();
                         alert = alert.replace("&", "§");
 
-                        String value = ChatColor.translateAlternateColorCodes('&',this.main.getConfig().getString("Broadcast-settings.mod-broadcast.format"));
+                        String value = ChatColor.translateAlternateColorCodes('&',this.instance.getConfig().getString("Broadcast-settings.mod-broadcast.format"));
 
                         value = value.replace("%message%",alert);
                         value = value.replace("%username%",sender.getName());
@@ -58,14 +57,14 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         {
                             //TODO implement toggle.
 
-                            if(!main.getNotifications().contains(sender.getName()))
+                            if(!instance.getNotifications().contains(sender.getName()))
                             {
-                                main.getNotifications().add(sender.getName());
-                                sender.sendMessage(color(main.getConfig().getString("Messages.notifiy-disabled")));
+                                instance.getNotifications().add(sender.getName());
+                                sender.sendMessage(color(instance.getConfig().getString("Messages.notifiy-disabled")));
                             }else
                             {
-                                main.getNotifications().remove(sender.getName());
-                                sender.sendMessage(color(main.getConfig().getString("Messages.notifiy-enabled")));
+                                instance.getNotifications().remove(sender.getName());
+                                sender.sendMessage(color(instance.getConfig().getString("Messages.notifiy-enabled")));
                             }
 
                         }else
@@ -73,10 +72,10 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                             for(Player staff : Bukkit.getServer().getOnlinePlayers()) {
                                 if(staff.hasPermission(Permissions.BROADCAST_STAFF_RECEIVE_PERM))
                                 {
-                                    if(!main.getNotifications().contains(staff.getName()))
+                                    if(!instance.getNotifications().contains(staff.getName()))
                                     {
                                         staff.sendMessage(value);
-                                        broadcastSound(main.getConfig().getString("Message-sounds.modbroadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.mod-broadcast.Sound-on-broadcast"));
+                                        broadcastSound(instance.getConfig().getString("Message-sounds.modbroadcast-sound"),instance.getConfig().getBoolean("Broadcast-settings.mod-broadcast.Sound-on-broadcast"));
                                     }
                                 }
                             }
@@ -85,7 +84,6 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                     }
                 }
             }
-        }
         return true;
     }
 
