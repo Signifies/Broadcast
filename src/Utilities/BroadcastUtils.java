@@ -124,14 +124,13 @@ public class BroadcastUtils {
      * @param
      *
      */
-    @Deprecated
     public void desc(CommandSender sender, Broadcast main)
     {
-        sender.sendMessage(color("&2========== " + getPrefix().replace(":","") + "&2=========="));
-        sender.sendMessage(color("&7[&9" + main.pdfFile.getName() + "&7] &6Created by, &b&l" +main.pdfFile.getAuthors()+"&6."));
-        sender.sendMessage(color("&2" + main.pdfFile.getDescription() + "&2."));
-        sender.sendMessage(color("&bWebsite: &e&l" + main.pdfFile.getWebsite()));
-        sender.sendMessage(color("&bList of sounds: &3&nhttps://gist.github.com/Signifies/7aa8da5dbf88496e4098 - Configuration sounds... "));
+        sender.sendMessage(color("&f==========" + getPrefix().replace(":","") + "&f=========="));
+        sender.sendMessage(color("&7[&b" + main.pdfFile.getName() + "&7] &fCreated by, &b" +main.pdfFile.getAuthors()+"&f."));
+        sender.sendMessage(color("&a" + main.pdfFile.getDescription() + "&2."));
+        sender.sendMessage(color("&bWebsite: &f" + main.pdfFile.getWebsite()));
+        sender.sendMessage(color("&bList of sounds: &f&nhttps://gist.github.com/Signifies/7aa8da5dbf88496e4098 - Configuration sounds... "));
         sender.sendMessage(color("&bMinecraft Color Codes: &a&nhttp://minecraftcolorcodes.com/"));
         sender.sendMessage(color("&7If you find bugs, errors, or would like to suggest ideas: https://github.com/Signifies/Broadcast/issues/new"));
         sender.sendMessage(color("&9If you like my work, you can support me by donating &ahere: " +getDonationURL()));
@@ -224,6 +223,14 @@ public class BroadcastUtils {
         }
     }
 
+    public void sendText(ArrayList<String> text, Player sender)
+    {
+        for(String txt: text)
+        {
+            txt = txt.replace("%player%",sender.getName());
+            sender.sendMessage(color(txt));
+        }
+    }
 
 
 }

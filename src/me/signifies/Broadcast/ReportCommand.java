@@ -36,7 +36,6 @@ public class ReportCommand extends BroadcastUtils implements CommandExecutor
         Player p =(Player) sender;
 
         int cooldownTime = instance.getConfig().getInt("Report.delay");
-
         String cooldown_msg = instance.getConfig().getString("Report.delay-msg");
         cooldown_msg = cooldown_msg.replace("%prefix%",getPrefix());
         cooldown_msg = cooldown_msg.replace("%username%", p.getName());
@@ -59,7 +58,7 @@ public class ReportCommand extends BroadcastUtils implements CommandExecutor
         {
             if(args.length == 0)
             {
-                p.sendMessage(color("&6Usage: &7/report <&fplayer&7> <&creason&7>"));
+                sendText(instance.getMenus().commandReport(),p);
             }else if(args.length == 1)
             {
                 p.sendMessage(color("&6You must give a reason on why you are reporting a user."));

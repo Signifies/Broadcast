@@ -2,7 +2,6 @@ package me.signifies.Broadcast;
 
 import Utilities.BroadcastUtils;
 import Utilities.Debug;
-import Utilities.Menus;
 import Utilities.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,26 +14,24 @@ import org.bukkit.command.CommandSender;
  */
 public class BroadcastCommand extends BroadcastUtils implements CommandExecutor {
 
-    Broadcast main;
-    private Menus menu = new Menus();
+    private Broadcast instance;
+
     public BroadcastCommand(Broadcast instance) {
-        this.main= instance;
+        this.instance= instance;
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[]) {
 
 
 
-        if(cmd.getName().equalsIgnoreCase("broadcast")) {
+
             if(!sender.hasPermission(Permissions.BROADCAST_PERM))
             {
-                sender.sendMessage(color(this.main.getConfig().getString("Messages.broadcastCmdMsg")));
+                sender.sendMessage(color(instance.getConfig().getString("Messages.broadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
                     //TODO IMPLEMENT DISPLAYHELP METHOD () FROM UTILS.
-                    displayHelp(sender,"&8========== [&b&lHelp&8] &8==========","&7/broadcast <msg> &c||<-help>||<-reload>  &a- &c" +Permissions.BROADCAST_PERM + "|| "+ Permissions.BROADCAST_RELOAD,
-
-                            "&1C&2o&3l&4o&5r &cFormatting: &6>prefix &a- &6displays username.\n&8View color code help here: &b&nhttp://minecraftcolorcodes.com/");
+                   sendText(instance.getMenus().commandBroadcast(),sender);
                 }else {
                     StringBuilder str = new StringBuilder();
 
@@ -45,7 +42,7 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
 
                     if(alert.contains("-ver") || alert.contains("-version"))
                     {
-                      sender.sendMessage(getPluginVersion(main,sender));
+                      sender.sendMessage(getPluginVersion(instance,sender));
                         return true;
                     }
 
@@ -58,35 +55,34 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
 
                     if(alert.contains("-help"))
                     {
-                       //TODO Deprecated, implementing better help menu. desc(sender,main);
+                       //TODO Deprecated, implementing better help instance.getMenus(). desc(sender,instance);
 
-                        sendText(menu.commandList(), sender);
+                        sendText(instance.getMenus().commandList(), sender);
 
                     }else if(alert.contains("-reload") || alert.contains("-rl"))
                     {
                         if(!sender.hasPermission(Permissions.BROADCAST_RELOAD))
                         {
-                            sender.sendMessage(color(this.main.getConfig().getString("Messages.broadcast-reloadMsg")));
+                            sender.sendMessage(color(instance.getConfig().getString("Messages.broadcast-reloadMsg")));
                         }else
                         {
-                            this.main.reloadConfig();
-                            sender.sendMessage(color(this.main.getConfig().getString("Messages.reload-Msg")));
+                            instance.reloadConfig();
+                            sender.sendMessage(color(instance.getConfig().getString("Messages.reload-Msg")));
                         }
                     }else if(alert.contains("-about"))
                     {
-                        desc(sender,main);
+                        desc(sender,instance);
                     }
                     else
                     {
                         alert = alert.replace("&", "§");
                         alert = alert.replace(">prefix",ChatColor.RED + " "+sender.getName() +ChatColor.DARK_GRAY + ">" + ChatColor.RESET);
-                        Bukkit.getServer().broadcastMessage(color(main.getConfig().getString("Broadcast-settings.Broadcast.AlertPrefix")) + " " + alert);
-                        broadcastSound(main.getConfig().getString("Message-sounds.broadcast-sound"),main.getConfig().getBoolean("Broadcast-settings.Broadcast.Sound-on-broadcast"));
+                        Bukkit.getServer().broadcastMessage(color(instance.getConfig().getString("Broadcast-settings.Broadcast.AlertPrefix")) + " " + alert);
+                        broadcastSound(instance.getConfig().getString("Message-sounds.broadcast-sound"),instance.getConfig().getBoolean("Broadcast-settings.Broadcast.Sound-on-broadcast"));
                         return true;
                     }
                 }
             }
-        }
         return true;
     }
 }

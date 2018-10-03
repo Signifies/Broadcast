@@ -18,11 +18,11 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 {
 
 
-    private Broadcast main;
+    private Broadcast instance;
 
     public ShoutCommand(Broadcast instance)
     {
-        main = instance;
+        instance = instance;
     }
 
     public HashMap<String, Long> cooldowns = new HashMap<>();
@@ -38,9 +38,9 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
         Player p = (Player)sender;
 
-        int cooldownTime = this.main.getConfig().getInt("shout-settings.delay");
+        int cooldownTime = instance.getConfig().getInt("shout-settings.delay");
 
-        String cooldown_msg = this.main.getConfig().getString("shout-settings.delay-msg");
+        String cooldown_msg = instance.getConfig().getString("shout-settings.delay-msg");
         cooldown_msg = cooldown_msg.replace("%prefix%",getPrefix());
         cooldown_msg = cooldown_msg.replace("%username%", p.getName());
 
@@ -61,14 +61,11 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
         {
             if(!p.hasPermission(Permissions.BROADCAST_SHOUT_PERM))
             {
-                p.sendMessage(color(this.main.getConfig().getString("shout-settings.permission-msg")));
+                p.sendMessage(color(instance.getConfig().getString("shout-settings.permission-msg")));
             }else {
                 if(args.length <1)
                 {
-                    //"
-
-                    displayHelpMsg(p,"&8========== [&b&lHelp&8] &8==========","&8/shout <message> &a- &c"+Permissions.BROADCAST_SHOUT_PERM,
-                            "&6Use /shout <message> to broadcast to the entire server. &9&l&n"+cooldownTime + "&r &csecond Delay is default. &3&nUse /shout -help for more");
+                    sendText(instance.getMenus().commandShout(),p);
                 }else if(args.length > 0)
                 {
 
@@ -82,28 +79,13 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
                     if(shout.contains("-help"))
                     {
-                        p.sendMessage(color("&8========== [&cShout &b&lHelp&8] &8=========="));
-                        p.sendMessage("");
-                        p.sendMessage(color("&7You can use functions inside shout that display information."));
-                        p.sendMessage(color("&cExample:&a&n/shout Hello my location is #location&r &c&l- &7Will display user location. "));
-                        p.sendMessage(color("&6Use: &a&n/shout -functions &6&l- &7To display list of functions."));
-                        p.sendMessage(color("&8==================================="));
+                        sendText(instance.getMenus().commandShout(),p);
                         return true;
                     }
 
                     if(shout.contains("-functions"))
                     {
-                        p.sendMessage(color("&8========== [&cShout &b&lFunctions&8] &8=========="));
-                        p.sendMessage("");
-                        p.sendMessage(color("&b#name &8&l- &7Displays player's name in shout."));
-                        p.sendMessage(color("&b#location &8&l- &7Will display user location. "));
-                        p.sendMessage(color("&b#uuid &8&l- &7 Displays user's UUID."));
-                        p.sendMessage(color("&eColor formatting in shout: ") + "&1, &2, &3, &4, &5, &6, &7, &8, &9 ETC.");
-                        p.sendMessage(color("&b#world &8&l- &7Displays the players current world."));
-                        p.sendMessage(color("&b#exp &8&l- Displays players Exp level."));
-                        p.sendMessage(color("&2&nFor Permissions to each function please check the Authors site."));
-                        p.sendMessage(color("&9How to use color codes: &3&nhttp://minecraftcolorcodes.com/"));
-                        p.sendMessage(color("&8==================================="));
+                        sendText(instance.getMenus().shoutFunctions(),p);
                         return true;
                     }
 
@@ -142,8 +124,8 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
 //                    canFormat(shout,p);
 
-                    String custom_prefix = color(this.main.getConfig().getString("shout-settings.prefix"));
-                    String value = color(this.main.getConfig().getString("shout-settings.format"));
+                    String custom_prefix = color(instance.getConfig().getString("shout-settings.prefix"));
+                    String value = color(instance.getConfig().getString("shout-settings.format"));
 
 
 //
@@ -159,11 +141,11 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
                        cooldowns.put(p.getName(), System.currentTimeMillis());
 
                        Bukkit.getServer().broadcastMessage(value);
-                       broadcastSound(main.getConfig().getString("Message-sounds.shoutbroadcast-sound"),main.getConfig().getBoolean("shout-settings.Sound-on-shout"));
+                       broadcastSound(instance.getConfig().getString("Message-sounds.shoutbroadcast-sound"),instance.getConfig().getBoolean("shout-settings.Sound-on-shout"));
                    }else
                    {
                        Bukkit.getServer().broadcastMessage(value);
-                       broadcastSound(main.getConfig().getString("Message-sounds.shoutbroadcast-sound"),main.getConfig().getBoolean("shout-settings.Sound-on-shout"));
+                       broadcastSound(instance.getConfig().getString("Message-sounds.shoutbroadcast-sound"),instance.getConfig().getBoolean("shout-settings.Sound-on-shout"));
                    }
                 }
             }

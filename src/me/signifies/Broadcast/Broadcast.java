@@ -2,6 +2,7 @@ package me.signifies.Broadcast;
 
 import Listener.Events;
 import Utilities.BroadcastUtils;
+import Utilities.Menus;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,6 +31,9 @@ public class Broadcast extends JavaPlugin implements Listener
      * Developers that contributed to this resource, will be mentioned under authors in the plugin.yml file.
      *
      */
+
+    private Menus menus = new Menus("&a--------- ", "&7>"," &b- ","&f||");
+
     public PluginDescriptionFile pdfFile = getDescription();
     private ArrayList<String> notify = new ArrayList<>();
     private ArrayList<UUID> author = new ArrayList<>();
@@ -84,4 +88,10 @@ public class Broadcast extends JavaPlugin implements Listener
             }
         }
     }
+
+    public Menus getMenus()
+    {
+        return menus;
+    }
+
 }
