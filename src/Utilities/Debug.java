@@ -1,6 +1,6 @@
 package Utilities;
 
-import me.es359.Broadcast.Broadcast;
+import me.signifies.Broadcast.Broadcast;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

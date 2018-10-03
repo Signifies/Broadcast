@@ -1,4 +1,4 @@
-package me.es359.Broadcast;
+package me.signifies.Broadcast;
 
 import Utilities.BroadcastUtils;
 import Utilities.Debug;
@@ -25,7 +25,7 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
 
 
 
-        if(cmd.getName().equalsIgnoreCase("Broadcast")) {
+        if(cmd.getName().equalsIgnoreCase("broadcast")) {
             if(!sender.hasPermission(Permissions.BROADCAST_PERM))
             {
                 sender.sendMessage(color(this.main.getConfig().getString("Messages.broadcastCmdMsg")));

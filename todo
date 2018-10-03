@@ -1,0 +1,8 @@
+# Requested features for the SpigotMC project Broadcast.
+- Bungeecord rendition.
+- Automatic broadcasts.
+- Perworld shout and broadcast messages. <World as arguments>
+- General code cleanup.
+- Menu cleanup.
+- Cooldown cleanup.
+- Message format cleanup

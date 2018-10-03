@@ -1,5 +1,5 @@
 name: Broadcast
-main: me.es359.Broadcast.Broadcast
+main: Broadcast
 version: 3.0.3
 description: Custom Broadcast plugin for server admins!
 author: Signifies

@@ -1,4 +1,4 @@
-package me.es359.Broadcast;
+package me.signifies.Broadcast;
 
 import Utilities.BroadcastUtils;
 import Utilities.Permissions;

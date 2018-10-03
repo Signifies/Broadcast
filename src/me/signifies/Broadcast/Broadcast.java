@@ -1,8 +1,7 @@
-package me.es359.Broadcast;
+package me.signifies.Broadcast;
 
 import Listener.Events;
 import Utilities.BroadcastUtils;
-import Utilities.Debug;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Created by ES359 on 4/3/15.
+ * Created by Signifies on 4/3/15.
  */
 public class Broadcast extends JavaPlugin implements Listener
 {
@@ -24,7 +23,7 @@ public class Broadcast extends JavaPlugin implements Listener
 
     /**
      *
-     * @author __ES (ES359) of Plugin, Broadcast.
+     * @author ES (Signifies) of Plugin, Broadcast.
      * All the code in this plugin, and related is the property
      * of of it's creator. You may decompile this resource at will, and if you use a specific section of code unique
      * to this plugin, please make sure I __ES, get credited.
@@ -41,7 +40,7 @@ public class Broadcast extends JavaPlugin implements Listener
         pm.registerEvents(new Events(this), this);
         pm.registerEvents(this,this);
         this.getCommand("sb").setExecutor(new ModBroadcastCommand(this));
-        this.getCommand("Broadcast").setExecutor(new BroadcastCommand(this));
+        this.getCommand("broadcast").setExecutor(new BroadcastCommand(this));
         this.getCommand("shout").setExecutor(new ShoutCommand(this));
         this.getCommand("report").setExecutor(new ReportCommand(this));
         this.getConfig().options().copyDefaults(true);
@@ -54,13 +53,10 @@ public class Broadcast extends JavaPlugin implements Listener
     {
         return notify;
     }
-
     public ArrayList<UUID> getAuthor()
     {
         return author;
     }
-
-    BroadcastUtils util = new BroadcastUtils();
 
     @EventHandler
     public void onPlayer(PlayerCommandPreprocessEvent event)
