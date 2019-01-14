@@ -1,5 +1,5 @@
 name: Broadcast
-main: Broadcast
+main: me.signifies.Broadcast.Broadcast
 version: 3.0.3
 description: Custom Broadcast plugin for server admins!
 author: Signifies
