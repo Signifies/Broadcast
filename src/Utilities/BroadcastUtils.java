@@ -27,12 +27,12 @@ public class BroadcastUtils {
     /**
      * Hard coded version ID. Because I forget.
      */
-    private final String VERSION_ID = "3.0.2 6/5/16";
+    private final String VERSION_ID = "3.0.4 10/24/19";
 
     /**
      * Plugin prefix.
      */
-    private String prefix = ChatColor.translateAlternateColorCodes('&',"&2&l[&b&lBroadcast&2&l]&6: &f");
+    static private String prefix = ChatColor.translateAlternateColorCodes('&',"&2&l[&b&lBroadcast&2&l]&6: &f");
     /**
      * Constant permission error.
      */
@@ -101,9 +101,9 @@ public class BroadcastUtils {
      *
      * @return
      */
-    public String getPrefix()
+    public static String getPrefix()
     {
-        return this.prefix;
+        return prefix;
     }
 
     /**
@@ -127,36 +127,16 @@ public class BroadcastUtils {
     public void desc(CommandSender sender, Broadcast main)
     {
         sender.sendMessage(color("&f==========" + getPrefix().replace(":","") + "&f=========="));
-        sender.sendMessage(color("&7[&b" + main.pdfFile.getName() + "&7] &fCreated by, &b" +main.pdfFile.getAuthors()+"&f."));
-        sender.sendMessage(color("&a" + main.pdfFile.getDescription() + "&2."));
-        sender.sendMessage(color("&bWebsite: &f" + main.pdfFile.getWebsite()));
-        sender.sendMessage(color("&bList of sounds: &f&nhttps://gist.github.com/Signifies/7aa8da5dbf88496e4098 - Configuration sounds... "));
+        sender.sendMessage(color("&7[" + main.pdfFile.getName() + "&7] &fCreated by, " +main.pdfFile.getAuthors()+"&f."));
+        sender.sendMessage(color( main.pdfFile.getDescription()));
+        sender.sendMessage(color("Website: &f" + main.pdfFile.getWebsite()));
+        sender.sendMessage(color("List of sounds: &f&nhttps://gist.github.com/Signifies/7aa8da5dbf88496e4098 - Configuration sounds... "));
         sender.sendMessage(color("&bMinecraft Color Codes: &a&nhttp://minecraftcolorcodes.com/"));
         sender.sendMessage(color("&7If you find bugs, errors, or would like to suggest ideas: https://github.com/Signifies/Broadcast/issues/new"));
         sender.sendMessage(color("&9If you like my work, you can support me by donating &ahere: " +getDonationURL()));
-        sender.sendMessage(color("&8-----------------------------"));
     }
 
-    @Deprecated
-    public void displayHelp(CommandSender sender, String title, String command, String info)
-    {
-        sender.sendMessage(color(title));
-        sender.sendMessage("");
-        sender.sendMessage(color(command));
-        sender.sendMessage("");
-        sender.sendMessage(color(info));
-    }
-    @Deprecated
-    public void displayHelpMsg(Player player, String title, String body, String information)
-    {
-        player.sendMessage(color(title));
-        player.sendMessage("");
-        player.sendMessage(color(body));
-        player.sendMessage(" ");
-        player.sendMessage(color(information));
-    }
-
-    public String color(String message) {
+    static public String color(String message) {
 
         String msg =  message;
         msg = msg.replace("&", "§");
@@ -180,6 +160,22 @@ public class BroadcastUtils {
             logToConsole("&cERROR: &3" +e.getMessage());
         }
     }
+
+    /**
+     Multipurpose Logging and debugging method.
+     Allows a developer to set multiple messages throughout their code that have an easy enable/disable flag.
+     By setting a priority greater than zero you can override the debug method and work only on a specific message
+     without having to enable ALL of your debug messages.
+     This method also makes use of a specific prefix baised on what values you pass onto the method itself.
+     */
+    static public void log(String msg, int priority) {
+        String tag = (Broadcast.DEBUG || priority > 1) ? "&f[&2DEBUG&f]&r":"&f[&4LOG&f]&r";
+        if(Broadcast.DEBUG || priority > 0) {
+            Bukkit.getServer().getConsoleSender().sendMessage(prefix + color(tag+" &6" + msg));
+        }
+    }
+
+
 
     /**
      *  Sends configured sound to player...

@@ -17,8 +17,8 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
 
     private Broadcast instance;
 
-    public ModBroadcastCommand(Broadcast instance) {
-        this.instance = instance;
+    public ModBroadcastCommand(Broadcast broadcast) {
+        instance = broadcast;
     }
 
 
@@ -27,7 +27,7 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
 
 
             if(!sender.hasPermission(Permissions.BROADCAST_STAFF_PERM)){
-                sender.sendMessage(color(this.instance.getConfig().getString("Messages.modbroadcastCmdMsg")));
+                sender.sendMessage(color(instance.getConfig().getString("Messages.modbroadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
 
@@ -38,20 +38,17 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                         }
                 }else {
                     if(args.length > 0) {
-
-//                 TODO       instance.getNotifications().add(sender.getName());
                         StringBuilder str = new StringBuilder();
 
-                        for (int j = 0; j < args.length; j++) {
-                            str.append(args[j] + " ");
+                        for (String arg : args) {
+                            str.append(arg + " ");
                         }
                         String alert = str.toString();
                         alert = alert.replace("&", "§");
 
-                        String value = ChatColor.translateAlternateColorCodes('&',this.instance.getConfig().getString("Broadcast-settings.mod-broadcast.format"));
-
-                        value = value.replace("%message%",alert);
-                        value = value.replace("%username%",sender.getName());
+                        String value =  instance.getConfig().getString("Broadcast-settings.mod-broadcast.format");
+                        value = value.replace("{message}",alert);
+                        value = value.replace("{username}",sender.getName());
 
                         if(alert.contains("-toggle"))
                         {
@@ -79,7 +76,7 @@ public class ModBroadcastCommand extends BroadcastUtils implements CommandExecut
                                     }
                                 }
                             }
-                            Bukkit.getServer().getConsoleSender().sendMessage(value);
+                            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',value));
                         }
                     }
                 }
