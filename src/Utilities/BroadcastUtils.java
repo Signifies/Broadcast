@@ -166,12 +166,13 @@ public class BroadcastUtils {
      Allows a developer to set multiple messages throughout their code that have an easy enable/disable flag.
      By setting a priority greater than zero you can override the debug method and work only on a specific message
      without having to enable ALL of your debug messages.
-     This method also makes use of a specific prefix baised on what values you pass onto the method itself.
+     This method also makes use of a specific prefix based on what values you pass onto the method itself.
      */
     static public void log(String msg, int priority) {
-        String tag = (Broadcast.DEBUG || priority > 1) ? "&f[&2DEBUG&f]&r":"&f[&4LOG&f]&r";
+        String tag = Broadcast.DEBUG ? "&f[&2DEBUG&f]&r":"&f[&4LOG&f]&r";
+        String result = (priority > 1) ? tag : "&f[&4LOG&f]&r";
         if(Broadcast.DEBUG || priority > 0) {
-            Bukkit.getServer().getConsoleSender().sendMessage(prefix + color(tag+" &6" + msg));
+            Bukkit.getServer().getConsoleSender().sendMessage(prefix + color(result+" &6" + msg));
         }
     }
 

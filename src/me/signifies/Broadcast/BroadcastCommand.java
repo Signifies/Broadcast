@@ -60,6 +60,10 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                     }
                     else
                     {
+                        log("&3This message has DEBUG "+Broadcast.DEBUG+" and priority set to zero [Nothing should print]",0);
+                        log("&eThis message has DEBUG "+Broadcast.DEBUG+" and the priority set to one. [LOG should be the prefix]",1);
+                        log("&dThis message has DEBUG "+Broadcast.DEBUG+" and the priority set greater than one (2) [DEBUG should be the prefix]",2);
+                        log("&cThis message has DEBUG "+Broadcast.DEBUG+" and the priority is nominal. (0) [DEBUG should be prefix and only print if debug is ON.]",0);
                         //alert = alert.replace("&", "§");
                         alert = alert.replace(">prefix",ChatColor.RED + " "+sender.getName() +ChatColor.DARK_GRAY + ">" + ChatColor.RESET);
                         Bukkit.getServer().broadcastMessage(color(instance.getConfig().getString("Broadcast-settings.Broadcast.AlertPrefix")) + " " + alert);

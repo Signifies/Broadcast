@@ -32,7 +32,7 @@ public class Broadcast extends JavaPlugin
     public PluginDescriptionFile pdfFile = getDescription();
     private ArrayList<String> notify = new ArrayList<>();
     private ArrayList<UUID> author = new ArrayList<>();
-    static public boolean DEBUG = false;
+    static public boolean DEBUG = true;
     public void onEnable()
     {
         PluginManager pm = Bukkit.getServer().getPluginManager();
