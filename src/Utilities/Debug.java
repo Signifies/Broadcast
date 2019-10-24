@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Deprecated
 public class Debug  {
 static BroadcastUtils utils = new BroadcastUtils();
        static public String FAILED_ACTION = "[FAILED ACTION] ";

@@ -15,7 +15,7 @@ public class Menus extends BroadcastUtils
     private String pref;
     private String suff;
     private String sep;
-    private String colorHelp = "&7View color code help here: &b&nhttp://minecraftcolorcodes.com/";
+    //private String colorHelp = "&7View color code help here: &b&nhttp://minecraftcolorcodes.com/";
     public Menus(String menuHeader, String prefix, String suffix, String separator){
         menu = color(menuHeader);
         pref = color(prefix);

@@ -16,7 +16,7 @@ public class Permissions
     static public String BROADCAST_SHOUT_FORMAT_WORLD = "broadcast.shout.world";
     static public String BROADCAST_SHOUT_FORMAT_LOCATION = "broadcast.shout.location";
     static public String BROADCAST_SHOUT_FORMAT_EXP = "broadcast.shout.exp";
-    static public String BROADCAST_SHOUT_FORMAT_TOOL = "broadcast.shout.tooldata";
+    //static public String BROADCAST_SHOUT_FORMAT_TOOL = "broadcast.shout.tooldata";
     static public String BROADCAST_REPORT_COMMAND = "broadcast.report";
     static public String BROADCAST_REPORT_RECIEVE = "broadcast.reports.receive";
     static public String BROADCAST_REPORT_DELAY_BYPASS = "broadcast.reports.command.bypass";

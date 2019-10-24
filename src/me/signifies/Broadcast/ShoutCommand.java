@@ -20,9 +20,9 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
     private Broadcast instance;
 
-    public ShoutCommand(Broadcast instance)
+    public ShoutCommand(Broadcast broadcast)
     {
-        instance = instance;
+        instance = broadcast;
     }
 
     public HashMap<String, Long> cooldowns = new HashMap<>();
@@ -41,14 +41,14 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
         int cooldownTime = instance.getConfig().getInt("shout-settings.delay");
 
         String cooldown_msg = instance.getConfig().getString("shout-settings.delay-msg");
-        cooldown_msg = cooldown_msg.replace("%prefix%",getPrefix());
-        cooldown_msg = cooldown_msg.replace("%username%", p.getName());
+        cooldown_msg = cooldown_msg.replace("{prefix}",getPrefix());
+        cooldown_msg = cooldown_msg.replace("{username}", p.getName());
 
         if (cooldowns.containsKey(p.getName())) {
             long secondsLeft = ((cooldowns.get(p.getName()) / 1000) + cooldownTime) - (System.currentTimeMillis() / 1000);
             if (secondsLeft > 0) {
-                Debug.log(p, "&7Message should print.");
-                cooldown_msg = cooldown_msg.replace("%time_left%","" + secondsLeft);
+                log( "&7Message should print.",0);
+                cooldown_msg = cooldown_msg.replace("{time_left}","" + secondsLeft);
                 p.sendMessage(color(cooldown_msg));
 //                Debug.log(Debug.LOG + Debug.ACTION + secondsLeft );
             } else if (secondsLeft <= 0) {
@@ -71,8 +71,8 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
                     StringBuilder str = new StringBuilder();
 
-                    for (int j = 0; j < args.length; j++) {
-                        str.append(args[j] + " ");
+                    for (String arg : args) {
+                        str.append(arg + " ");
                     }
 
                     String shout = str.toString();
@@ -129,11 +129,11 @@ public class ShoutCommand extends BroadcastUtils implements CommandExecutor
 
 
 //
-                    value = value.replace("%message%",shout);
-                    value = value.replace("%username%",p.getName());
-                    value = value.replace("%world%",p.getWorld().getName());
-                    value = value.replace("%custom_prefix%", custom_prefix);
-                    value = value.replace("%plugin_prefix%",getPrefix());
+                    value = value.replace("{message}",shout);
+                    value = value.replace("{username}",p.getName());
+                    value = value.replace("{world}",p.getWorld().getName());
+                    value = value.replace("{custom_prefix}", custom_prefix);
+                    value = value.replace("{plugin_prefix}",getPrefix());
 
 
                    if(!p.hasPermission("broadcast.cooldown.bypass"))

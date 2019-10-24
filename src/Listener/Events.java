@@ -17,30 +17,30 @@ import java.util.UUID;
 public class Events extends BroadcastUtils implements Listener
 {
 
-    private Broadcast main;
+    private Broadcast instance;
 
-    public Events(Broadcast instance)
+    public Events(Broadcast broadcast)
     {
-        this.main = instance;
+        instance = broadcast;
     }
 
     private boolean joinEnabled()
     {
-        return this.main.getConfig().getBoolean("Events.Join.Enabled");
+        return instance.getConfig().getBoolean("Events.Join.Enabled");
     }
     private boolean quitEnabled()
     {
-        return this.main.getConfig().getBoolean("Events.Quit.Enabled");
+        return instance.getConfig().getBoolean("Events.Quit.Enabled");
     }
 
     public String hasJoinPermission()
     {
-        return ""+this.main.getConfig().get("Events.Join.Permission");
+        return ""+instance.getConfig().get("Events.Join.Permission");
     }
 
     public String hasQuitPermission()
     {
-        return ""+this.main.getConfig().get("Events.Quit.Permission");
+        return ""+instance.getConfig().get("Events.Quit.Permission");
     }
 
     @EventHandler
@@ -48,18 +48,19 @@ public class Events extends BroadcastUtils implements Listener
     {
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
-//TODO REMOVED.        authorMessage(main,p);
+    displayAuthInfo(p);
 
-        authorToggle(main,p);
+        authorToggle(instance,p);
 
         //Location location = p.getName() +"'s Location: " +"" + ChatColor.GRAY + " " + p.getLocation().getBlockX() +", " + ChatColor.BLUE +p.getLocation().getBlockY() + " " + ChatColor.GREEN + ", " + p.getLocation().getBlockZ();
-        String staffMsg = this.main.getConfig().getString("Events.Join.Staff-Prefix");
-        staffMsg = staffMsg.replace("%player%",p.getName());
-        staffMsg = staffMsg.replace("%world%",p.getWorld().getName());
 
-        String msg = this.main.getConfig().getString("Events.Join.Message");
-        msg = msg.replace("%player%",p.getName());
-        msg = msg.replace("%world%",p.getWorld().getName());
+        String staffMsg = instance.getConfig().getString("Events.Join.Staff-Prefix");
+        staffMsg = staffMsg.replace("{player}",p.getName());
+        staffMsg = staffMsg.replace("{world}",p.getWorld().getName());
+
+        String msg = instance.getConfig().getString("Events.Join.Message");
+        msg = msg.replace("{player}",p.getName());
+        msg = msg.replace("{world}",p.getWorld().getName());
 
 
         if(joinEnabled())
@@ -70,7 +71,7 @@ public class Events extends BroadcastUtils implements Listener
                 Bukkit.getServer().broadcastMessage(color(staffMsg));
             }else
             {
-                broadcastSound(main.getConfig().getString("Message-sounds.sound-on-Join"),main.getConfig().getBoolean("Events.Join.sound-enabled"));
+                broadcastSound(instance.getConfig().getString("Message-sounds.sound-on-Join"),instance.getConfig().getBoolean("Events.Join.sound-enabled"));
                 Bukkit.getServer().broadcastMessage(color(msg));
             }
 
@@ -90,16 +91,16 @@ public class Events extends BroadcastUtils implements Listener
         {
             if(p.hasPermission(hasQuitPermission()))
             {
-                String staffMsg = this.main.getConfig().getString("Events.Quit.Staff-Prefix");
-                staffMsg = staffMsg.replace("%player%",p.getName());
-                staffMsg = staffMsg.replace("%world%",p.getWorld().getName());
+                String staffMsg = instance.getConfig().getString("Events.Quit.Staff-Prefix");
+                staffMsg = staffMsg.replace("{player}",p.getName());
+                staffMsg = staffMsg.replace("{world}",p.getWorld().getName());
                 Bukkit.getServer().broadcastMessage(color(staffMsg));
             }else
             {
-                broadcastSound(main.getConfig().getString("Message-sounds.sound-on-Quit"),main.getConfig().getBoolean("Events.Quit.sound-enabled"));
-                String msg = this.main.getConfig().getString("Events.Quit.Message");
-                msg = msg.replace("%player%",p.getName());
-                msg = msg.replace("%world%",p.getWorld().getName());
+                broadcastSound(instance.getConfig().getString("Message-sounds.sound-on-Quit"),instance.getConfig().getBoolean("Events.Quit.sound-enabled"));
+                String msg = instance.getConfig().getString("Events.Quit.Message");
+                msg = msg.replace("{player}",p.getName());
+                msg = msg.replace("{world}",p.getWorld().getName());
                 Bukkit.getServer().broadcastMessage(color(msg));
             }
         }

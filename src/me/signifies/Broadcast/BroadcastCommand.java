@@ -16,27 +16,22 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
 
     private Broadcast instance;
 
-    public BroadcastCommand(Broadcast instance) {
-        this.instance= instance;
+    public BroadcastCommand(Broadcast broadcast) {
+        instance= broadcast;
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[]) {
-
-
-
-
-            if(!sender.hasPermission(Permissions.BROADCAST_PERM))
-            {
+        if(!sender.hasPermission(Permissions.BROADCAST_PERM))
+        {
                 sender.sendMessage(color(instance.getConfig().getString("Messages.broadcastCmdMsg")));
             }else {
                 if(args.length < 1) {
-                    //TODO IMPLEMENT DISPLAYHELP METHOD () FROM UTILS.
                    sendText(instance.getMenus().commandBroadcast(),sender);
                 }else {
                     StringBuilder str = new StringBuilder();
 
-                    for (int j = 0; j < args.length; j++) {
-                        str.append(args[j] + " ");
+                    for (String arg : args) {
+                        str.append(arg + " ");
                     }
                     String alert = str.toString();
 
@@ -46,19 +41,9 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                         return true;
                     }
 
-                    if(alert.contains("-debug"))
-                    {
-                        Debug.log("Contains Debug reached..");
-                        Debug.debugToggle(sender,args);
-                        return true;
-                    }
-
                     if(alert.contains("-help"))
                     {
-                       //TODO Deprecated, implementing better help instance.getMenus(). desc(sender,instance);
-
                         sendText(instance.getMenus().commandList(), sender);
-
                     }else if(alert.contains("-reload") || alert.contains("-rl"))
                     {
                         if(!sender.hasPermission(Permissions.BROADCAST_RELOAD))
@@ -75,7 +60,7 @@ public class BroadcastCommand extends BroadcastUtils implements CommandExecutor 
                     }
                     else
                     {
-                        alert = alert.replace("&", "§");
+                        //alert = alert.replace("&", "§");
                         alert = alert.replace(">prefix",ChatColor.RED + " "+sender.getName() +ChatColor.DARK_GRAY + ">" + ChatColor.RESET);
                         Bukkit.getServer().broadcastMessage(color(instance.getConfig().getString("Broadcast-settings.Broadcast.AlertPrefix")) + " " + alert);
                         broadcastSound(instance.getConfig().getString("Message-sounds.broadcast-sound"),instance.getConfig().getBoolean("Broadcast-settings.Broadcast.Sound-on-broadcast"));
