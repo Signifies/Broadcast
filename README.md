@@ -1,10 +1,6 @@
-# Broadcast
-Broadcast plugin. 
-
-
-
-  author Signifies of Plugin, Broadcast.  
-  All the code in this plugin, and related is the property 
-  of of it's creator. You may decompile this resource at will, and if you use a specific section of code unique
-  to this plugin, please make sure I Signifies, get credited. 
-  Developers that contributed to this resource, will be mentioned under authors in the plugin.yml file. 
+## Broadcast
+Chat management plugin that can be found on [Spigot](https://www.spigotmc.org/resources/broadcast.5747/)
+Basic features include
+- /shout > A command that allows an average user on the server to globablly talk if a server is configured this way.
+- /broadcast > A command that allows server administrators via the console or in the game to address the entire server. 
+- /sb > A command that allows staff to talk amongst themselves without the player base being preivy to the conversation.  
